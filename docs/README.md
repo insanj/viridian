@@ -3,7 +3,7 @@
 <br/><br/>
 viridian
 <br/>
-tiny companion hud for minecraft (fabric 1.14)
+companion mod for minecraft (fabric 1.14)
 </h3>
 
 <p align="center">
@@ -65,7 +65,8 @@ Forked from [ash](https://minecraft.curseforge.com/projects/ash-another-simple-h
 - [Fabric API](https://fabricmc.net/wiki/install)
 - [Fabric Yarn Mappings](https://github.com/FabricMC/yarn/)
 - [Spigot/Bukkit Forums - Calculating Player Direction](https://www.spigotmc.org/threads/player-direction.175482/)
-
+- [Player-Graves](https://github.com/NerdHubMC/Player-Graves/)
+-
 ## Authors
 
 (c) 2019 Julian Weiss github.com/insanj
@@ -77,7 +78,7 @@ Forked from [ash](https://minecraft.curseforge.com/projects/ash-another-simple-h
 ```
 MIT License
 
-Copyright (c) 2019 Julian Weiss
+Copyright (c) 2019 Julian Weiss & Anna Raykovska
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
