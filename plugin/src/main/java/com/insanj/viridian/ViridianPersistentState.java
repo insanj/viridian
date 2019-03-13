@@ -24,7 +24,7 @@ public class ViridianPersistentState extends PersistentState {
     //    abcde-12345....: (1st map)
     //      Birch & Brick: (2nd map)
     //        x: .... (3rd map)
-    private Map<String, Map<String, Map<String, Double>>> worlds = new HashMap();
+    public Map<String, Map<String, Map<String, Double>>> worlds = new HashMap();
 
     public static ViridianPersistentState get(ServerWorld world) {
         return world.getPersistentStateManager().getOrCreate(ViridianPersistentState::new, "ViridianPersistentState");

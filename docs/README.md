@@ -65,8 +65,8 @@ Forked from [ash](https://minecraft.curseforge.com/projects/ash-another-simple-h
 - [Fabric API](https://fabricmc.net/wiki/install)
 - [Fabric Yarn Mappings](https://github.com/FabricMC/yarn/)
 - [Spigot/Bukkit Forums - Calculating Player Direction](https://www.spigotmc.org/threads/player-direction.175482/)
-- [Player-Graves](https://github.com/NerdHubMC/Player-Graves/)
--
+- [Player Graves](https://github.com/NerdHubMC/Player-Graves/)
+
 ## Authors
 
 (c) 2019 Julian Weiss github.com/insanj
@@ -105,6 +105,32 @@ SOFTWARE.
 MIT License
 
 Copyright (c) 2019 umollu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### [Player Graves](https://github.com/NerdHubMC/Player-Graves/)
+
+```
+MIT License
+
+Copyright (c) 2019 abused_master
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
