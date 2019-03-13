@@ -1,4 +1,4 @@
-package com.umollu.ash;
+package com.insanj.viridian;
 
 import com.google.gson.Gson;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -12,10 +12,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class AshMod implements ModInitializer {
+public class ViridianMod implements ModInitializer {
 
-    public static final String MOD_ID = "umollu_ash";
-    public static AshConfig config;
+    public static final String MOD_ID = "insanj_viridian";
+    public static ViridianConfig config;
 
     @Override
     public void onInitialize() {
@@ -26,7 +26,7 @@ public class AshMod implements ModInitializer {
         File configFile = new File(configPath);
 
         if(!configFile.exists()) {
-            config = new AshConfig();
+            config = new ViridianConfig();
             String result = gson.toJson(config);
             try {
                 FileOutputStream out = new FileOutputStream(configFile, false);
@@ -42,18 +42,18 @@ public class AshMod implements ModInitializer {
         else {
 
             try {
-                config = gson.fromJson( new FileReader(configFile), AshConfig.class);
+                config = gson.fromJson( new FileReader(configFile), ViridianConfig.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             finally {
-                config = (config == null? new AshConfig() : config);
+                config = (config == null? new ViridianConfig() : config);
             }
         }
 
 
         CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
-                ServerCommandManager.literal("toggleash")
+                ServerCommandManager.literal("viridian")
                         .executes(context -> {
                             config.showHud = !config.showHud;
                             config.saveConfig();
@@ -62,7 +62,7 @@ public class AshMod implements ModInitializer {
         ));
 
         CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
-                ServerCommandManager.literal("ashcolor")
+                ServerCommandManager.literal("vcolor")
                         .then(ServerCommandManager.argument("r", IntegerArgumentType.integer())
                                 .then(ServerCommandManager.argument("g", IntegerArgumentType.integer())
                                         .then(ServerCommandManager.argument("b", IntegerArgumentType.integer())

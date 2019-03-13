@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.umollu.ash.mixin",
+  "package": "com.insanj.viridian.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "GameRendererMixin"

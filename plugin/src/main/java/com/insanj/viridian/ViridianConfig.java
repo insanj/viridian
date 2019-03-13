@@ -1,4 +1,4 @@
-package com.umollu.ash;
+package com.insanj.viridian;
 
 import com.google.gson.Gson;
 import net.fabricmc.loader.api.FabricLoader;
@@ -7,14 +7,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class AshConfig {
+public class ViridianConfig {
 
     public boolean showHud = true;
 
     public int hudColor = 0xeeeeee;
 
     public void saveConfig() {
-        String configPath = FabricLoader.getInstance().getConfigDirectory() + "/" + AshMod.MOD_ID + ".json";
+        String configPath = FabricLoader.getInstance().getConfigDirectory() + "/" + ViridianMod.MOD_ID + ".json";
         File configFile = new File(configPath);
         String result = new Gson().toJson(this);
         try {

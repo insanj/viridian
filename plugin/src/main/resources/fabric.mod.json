@@ -1,16 +1,16 @@
 {
-  "id": "umollu_ash",
-  "name": "ASH - Another Simple HUD",
-  "description": "ASH - Another Simple HUD with FPS count and coordinates.",
+  "id": "insanj_viridian",
+  "name": "viridian",
+  "description": "experimental hud project on fabric 1.14",
   "version": "${version}",
   "side": "universal",
   "initializers": [
-    "com.umollu.ash.AshMod"
+    "com.insanj.viridian.ViridianMod"
   ],
   "requires": {
     "fabric": "*"
   },
   "mixins": {
-    "client": "umollu_ash.client.json"
+    "client": "insanj_viridian.client.json"
   }
 }
