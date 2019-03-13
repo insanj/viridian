@@ -24,10 +24,6 @@ dependencies {
 
 	// JSON file format used for client-side config (inherited from ASH).
 	implementation 'com.google.code.gson:gson:2.8.5'
-
-	// YAML file format used for server-side storage (inherited from Pride).
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
-	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8'
 }
 
 processResources {

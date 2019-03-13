@@ -8,7 +8,7 @@ tiny companion hud for minecraft (fabric 1.14)
 
 <p align="center">
   <a href="https://github.com/insanj/viridian/releases">
-    <img src="https://img.shields.io/github/tag/insanj/viridian.svg" />
+    <img src="https://img.shields.io/github/release/insanj/viridian.svg" />
     <img src="https://img.shields.io/github/release-date/insanj/viridian.svg" />
   </a>
 
