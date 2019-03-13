@@ -51,6 +51,7 @@ public class ViridianMod implements ModInitializer {
             }
         }
 
+        config.readConfig();
 
         CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
                 ServerCommandManager.literal("viridian")

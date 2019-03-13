@@ -11,7 +11,7 @@ tiny companion hud for minecraft (fabric 1.14)
     <img src="https://img.shields.io/github/tag/insanj/viridian.svg" />
     <img src="https://img.shields.io/github/release-date/insanj/viridian.svg" />
   </a>
-  
+
   <a href="https://github.com/insanj/viridian/">
     <img src="https://img.shields.io/github/languages/code-size/insanj/viridian.svg" />
   </a>
@@ -21,7 +21,7 @@ tiny companion hud for minecraft (fabric 1.14)
   <a href="https://github.com/insanj/viridian/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/insanj/viridian.svg" />
   </a>
-  
+
   <a href="https://jdk.java.net/">
     <img src="https://img.shields.io/badge/java-10.0.2-yellow.svg" />
   </a>
@@ -43,6 +43,14 @@ Install `viridian.jar` in your `.minecraft/mods/` folder. That's it!
 - Make sure [Fabric](https://fabricmc.net/wiki/install) is already installed on your Minecraft client. I recommend using the Vanilla launcher.
 - Once the Fabric launcher is installed, get the [Fabric API](https://minecraft.curseforge.com/projects/fabric), which powers Fabric mods, and place it in your `mods/` folder (appears after running Fabric from the Minecraft launcher for the first time).
 - To see enabled mods, install [Mod Menu](https://minecraft.curseforge.com/projects/modmenu), which adds a button on the start screen and pause menu.
+
+### Configuration
+
+- A default config file is created when running viridian for the first time, check it out at `.minecraft/config/insanj_viridian.json`. Example:
+
+```json
+{"showHud":true,"hudColor":15658734}
+```
 
 ## How to Build
 
