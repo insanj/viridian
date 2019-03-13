@@ -38,23 +38,28 @@ tiny companion hud for minecraft (fabric 1.13)
 
 Install `viridian.jar` in your `.minecraft/mods/` folder. That's it!
 
+![](in_game.png)
+![](mod_menu.png)
+
 ### Requirements
 
 - Make sure [Fabric](https://fabricmc.net/wiki/install) is already installed on your Minecraft client. I recommend using the Vanilla launcher.
-- Once the Fabric launcher is installed, get the [Fabric API](https://minecraft.curseforge.com/projects/fabric), which powers Fabric mods.
-- To toggle and config mods, install the [Mod Menu](https://minecraft.curseforge.com/projects/modmenu) mod, which adds a button on the start screen and pause menu (although you still need to restart the game when installing mods).
+- Once the Fabric launcher is installed, get the [Fabric API](https://minecraft.curseforge.com/projects/fabric), which powers Fabric mods, and place it in your `mods/` folder (appears after running Fabric from the Minecraft launcher for the first time).
+- To see enabled mods, install [Mod Menu](https://minecraft.curseforge.com/projects/modmenu), which adds a button on the start screen and pause menu.
 
 ## How to Build
 
-### Requirements
-- Java
-- Gradle (`sudo apt install gradle`)
+- `cd plugin && ./gradlew build`
 
-### Commands
-- `./gradle idea`
+## Acknowledgements
 
-### Makefile
-- `make gradle`
+Forked from [ash](https://minecraft.curseforge.com/projects/ash-another-simple-hud).
+
+- [ASH - Another Simple HUD](https://github.com/umollu/ash)
+- [BiomeInfo](https://github.com/bl4ckscor3/BiomeInfo)
+- [Fabric API](https://fabricmc.net/wiki/install)
+- [Fabric Yarn Mappings](https://github.com/FabricMC/yarn/)
+- [Spigot/Bukkit Forums - Calculating Player Direction](https://www.spigotmc.org/threads/player-direction.175482/)
 
 ## Authors
 

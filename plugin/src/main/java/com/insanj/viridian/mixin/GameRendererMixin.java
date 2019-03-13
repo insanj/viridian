@@ -30,8 +30,8 @@ public class GameRendererMixin {
 			GlStateManager.pushMatrix();
 			GlStateManager.scaled(1 * scaleFactor, 1 * scaleFactor, 1 * scaleFactor);
 
-			String ashString = String.format("%s %d %s %s",  client.getCameraEntity().getHorizontalFacing().toString(), getCardinalDirection(client.getCameraEntity().yaw), client.getCameraEntity().getMovementDirection().getName(), client.getCameraEntity().getRotationClient().toString());
-				// String.format("%d fps %d %d %d %s", MinecraftClient.getCurrentFps(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), getCardinalDirection(client.getCameraEntity().getHeadYaw()));
+			String facingString = getCardinalDirection(client.getCameraEntity().yaw);
+			String ashString = String.format("%d fps %d %d %d %s", MinecraftClient.getCurrentFps(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), facingString);
 			client.textRenderer.drawWithShadow(ashString, 5, 5, ViridianMod.config.hudColor);
 
 			Chunk chunk = client.world.getWorldChunk(blockPos);
@@ -43,9 +43,9 @@ public class GameRendererMixin {
 		}
 	}
 
-	// thanks to defcon & worldedit https://www.spigotmc.org/threads/player-direction.175482/
+	// based off of defcon & worldedit https://www.spigotmc.org/threads/player-direction.175482/
 	public String getCardinalDirection(double yaw) {
-			 double rotation = (yaw - 90.0F) % 360.0F;
+			 double rotation = (yaw - 180.0F) % 360.0F;
 			 if (rotation < 0.0D) {
 					 rotation += 360.0D;
 			 }
