@@ -4,12 +4,14 @@ import com.insanj.viridian.ViridianMod;
 import com.insanj.viridian.ViridianPersistentState;
 
 import java.util.Map;
+import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.PlayerManager;
 
 // import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -45,22 +47,40 @@ public class GameRendererMixin {
 			String biomeInfoString = biomeInfoTextComponent.getFormattedText();
 			client.textRenderer.drawWithShadow(biomeInfoString, 5, 15, ViridianMod.config.hudColor);
 
-			// pride
-			String playerName = client.getServer().getUserName();
-			ServerPlayerEntity player = client.getServer().getPlayerManager().getPlayer(playerName);
-			ServerWorld serverWorld = player.getServerWorld();
-			ViridianPersistentState persis = ViridianPersistentState.get(serverWorld);
-			Map<String, Map<String, Double>> prideAreas = persis.getPrideAreas(serverWorld);
-			float renderDiff = 10;
-			float renderY = 15 + renderDiff;
-			for (String areaName: prideAreas.keySet()) {
-					Map<String, Double> prideArea = prideAreas.get(areaName);
-					Double diff = Math.abs(Math.abs(prideArea.get("x") - blockPos.getX()) + Math.abs(prideArea.get("y") - blockPos.getY()) + Math.abs(prideArea.get("z") - blockPos.getZ()));
-					Double threshold = 50.0;
-					if (diff <= threshold) {
-						client.textRenderer.drawWithShadow(areaName, 5, renderY, ViridianMod.config.hudColor);
-						renderY = renderY + renderDiff;
+			// pride (TODO: make async?)
+			try {
+					// System.out.println("Pride time");
+					float renderDiff = 10;
+					float renderY = 15 + renderDiff;
+					PlayerManager playerManager = client.getServer().getPlayerManager();
+					// System.out.println("getPlayerManager = " + playerManager.toString());
+					String[] playerNames = playerManager.getPlayerNames();
+					// System.out.println("Player names = " + playerNames.toString());
+					for (String playerName : playerNames) { // client.getServer().getUserName();
+						ServerPlayerEntity player = playerManager.getPlayer(playerName);
+						ServerWorld serverWorld = player.getServerWorld();
+						ViridianPersistentState persis = ViridianPersistentState.get(serverWorld);
+						Map<String, Map<String, Double>> prideAreas = persis.getPrideAreas(serverWorld);
+						boolean drewName = false;
+						BlockPos playerPos = player.getPos();
+						for (String areaName: prideAreas.keySet()) {
+								Map<String, Double> prideArea = prideAreas.get(areaName);
+								Double diff = Math.abs(Math.abs(prideArea.get("x") - playerPos.getX()) + Math.abs(prideArea.get("y") - playerPos.getY()) + Math.abs(prideArea.get("z") - playerPos.getZ()));
+								Double threshold = 50.0;
+								if (diff <= threshold) {
+									if (drewName == false) {
+											drewName = true;
+											client.textRenderer.drawWithShadow(playerName, 5, renderY, ViridianMod.config.hudColor);
+											renderY = renderY + renderDiff;
+									}
+
+									client.textRenderer.drawWithShadow(areaName, 10, renderY, ViridianMod.config.hudColor);
+									renderY = renderY + renderDiff;
+								}
+						}
 					}
+			} catch (Exception e) {
+				System.out.println(e.toString());
 			}
 
 			GlStateManager.popMatrix();

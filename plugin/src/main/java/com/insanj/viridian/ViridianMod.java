@@ -27,15 +27,13 @@ public class ViridianMod implements ModInitializer {
     public static ViridianConfig config;
 
     public String configPath;
-    public String pridePath;
 
     @Override
     public void onInitialize() {
         configPath = FabricLoader.getInstance().getConfigDirectory() + "/" + MOD_ID + ".json";
-        pridePath = FabricLoader.getInstance().getConfigDirectory() + "/" + MOD_ID + "-pride.json";
 
         File configFile = new File(configPath);
-        if(!configFile.exists()) {
+        if (!configFile.exists()) {
             config = ViridianConfig.writeConfigToFile(configFile);
         }
         else {

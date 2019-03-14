@@ -54,9 +54,9 @@ public class ViridianPersistentState extends PersistentState {
         return this.worlds.get(key).get(areaName);
     }
 
-    public boolean doesPrideAreaExist(ServerWorld world, String worldName) {
+    public boolean doesPrideAreaExist(ServerWorld world, String areaName) {
         String key = keyForWorld(world);
-        return this.worlds.containsKey(key) && this.worlds.get(key).containsKey(worldName);
+        return this.worlds.containsKey(key) && this.worlds.get(key).containsKey(areaName);
     }
 
     public void setPrideArea(ServerWorld world, String areaName, Map<String, Double> area) {
@@ -75,13 +75,12 @@ public class ViridianPersistentState extends PersistentState {
     }
 
     public void removePrideArea(ServerWorld world, String areaName) {
-        String key = keyForWorld(world);
-        Map<String, Map<String, Double>> areasInThisWorld = null;
-
         if (!doesPrideAreaExist(world, areaName)) {
           return;
         }
 
+        String key = keyForWorld(world);
+        Map<String, Map<String, Double>> areasInThisWorld = this.worlds.get(key);
         areasInThisWorld.remove(areaName);
         this.worlds.put(key, areasInThisWorld);
         this.markDirty();
@@ -131,7 +130,7 @@ public class ViridianPersistentState extends PersistentState {
               DoubleTag z = new DoubleTag(areaMap.get("z"));
 
               areaTag.put("x", x);
-              areaTag.put("y", x);
+              areaTag.put("y", y);
               areaTag.put("z", z);
 
               areasTags.put(areaName, areaTag);
