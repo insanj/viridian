@@ -6,24 +6,35 @@ import com.insanj.viridian.ViridianPersistentState;
 import java.util.Map;
 import java.util.List;
 
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.ClientGameSession;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.PlayerManager;
-
-// import net.minecraft.world.biome.Biome;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.text.TextComponent;
-// import net.minecraft.world.World;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+
+import net.fabricmc.loader.FabricLoader;
+import net.fabricmc.loader.EnvironmentHandler;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+/*
+@Mixin(MinecraftClientGame.class)
+public class MinecraftClientGameMixin {
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClientGame;alphaFunc(IF)V"), method = "onStartGameSession")
+	public void render(float float_1, long long_1, boolean boolean_1, CallbackInfo info) {
+
+
+}*/
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
@@ -49,42 +60,93 @@ public class GameRendererMixin {
 
 			// pride (TODO: make async?)
 			try {
-					// System.out.println("Pride time");
 					float renderDiff = 10;
 					float renderY = 15 + renderDiff;
-					PlayerManager playerManager = client.getServer().getPlayerManager();
-					// System.out.println("getPlayerManager = " + playerManager.toString());
-					String[] playerNames = playerManager.getPlayerNames();
-					// System.out.println("Player names = " + playerNames.toString());
-					for (String playerName : playerNames) { // client.getServer().getUserName();
-						ServerPlayerEntity player = playerManager.getPlayer(playerName);
-						ServerWorld serverWorld = player.getServerWorld();
-						ViridianPersistentState persis = ViridianPersistentState.get(serverWorld);
-						Map<String, Map<String, Double>> prideAreas = persis.getPrideAreas(serverWorld);
-						boolean drewName = false;
-						BlockPos playerPos = player.getPos();
-						for (String areaName: prideAreas.keySet()) {
-								Map<String, Double> prideArea = prideAreas.get(areaName);
-								Double diff = Math.abs(Math.abs(prideArea.get("x") - playerPos.getX()) + Math.abs(prideArea.get("y") - playerPos.getY()) + Math.abs(prideArea.get("z") - playerPos.getZ()));
-								Double threshold = 50.0;
-								if (diff <= threshold) {
-									if (drewName == false) {
-											drewName = true;
-											client.textRenderer.drawWithShadow(playerName, 5, renderY, ViridianMod.config.hudColor);
-											renderY = renderY + renderDiff;
-									}
+					boolean drewName = false;
 
-									client.textRenderer.drawWithShadow(areaName, 10, renderY, ViridianMod.config.hudColor);
-									renderY = renderY + renderDiff;
-								}
+					ViridianPridePacketResponse response = getViridianPridePacketResponse();
+					for (ViridianPridePacketPlayer packetPlayer : response.getPlayers()) {
+							PlayerEntity player = packetPlayer.getPlayer();
+							Map<String, Map<String, Double>> prideAreas = packetPlayer.getPrideAreas();
+							BlockPos playerPos = player.getPos();
+							for (String areaName: prideAreas.keySet()) {
+									Map<String, Double> prideArea = prideAreas.get(areaName);
+									Double diff = Math.abs(Math.abs(prideArea.get("x") - playerPos.getX()) + Math.abs(prideArea.get("y") - playerPos.getY()) + Math.abs(prideArea.get("z") - playerPos.getZ()));
+									Double threshold = 50.0;
+									if (diff <= threshold) {
+										if (drewName == false) {
+												drewName = true;
+												client.textRenderer.drawWithShadow(player.getName(), 5, renderY, ViridianMod.config.hudColor);
+												renderY = renderY + renderDiff;
+										}
+
+										client.textRenderer.drawWithShadow(areaName, 10, renderY, ViridianMod.config.hudColor);
+										renderY = renderY + renderDiff;
+									}
+							}
 						}
 					}
+
 			} catch (Exception e) {
-				System.out.println(e.toString());
+				System.out.println(e.getStackTrace().toString());
 			}
 
 			GlStateManager.popMatrix();
 		}
+	}
+
+	final class ViridianPridePacketResponse {
+		private final List<ViridianPridePacketPlayer> players;
+		public ViridianPridePacketResponse(List<ViridianPridePacketPlayer> players) { this.players = players; }
+		public List<ViridianPridePacketPlayer> getPlayers() { return players; }
+	}
+
+	final class ViridianPridePacketPlayer {
+		private final PlayerEntity player;
+		private final Map<String, Map<String, Double>> prideAreas;
+		public ViridianPridePacketPlayer(PlayerEntity player, Map<String, Map<String, Double>> prideAreas) { this.player = player; this.prideAreas = prideAreas; }
+		public PlayerEntity getPlayer() { return player; }
+		public Map<String, Map<String, Double>> getPrideAreas() { return prideAreas; }
+	}
+
+	private ViridianPridePacketResponse getViridianPridePacketResponse() {
+			PlayerManager playerManager = server.getPlayerManager();
+				String[] playerNames = playerManager.getPlayerNames()
+									for (String playerName : playerNames) { // server.getUserName();
+						PlayerEntity player = playerManager.getPlayer(playerName);
+						ServerWorld serverWorld = player.getServerWorld();
+						Map<String, Map<String, Double>> prideAreas = persis.getPrideAreas(serverWorld);
+					}
+					ServerWorld serverWorld;
+					ViridianPersistentState persis = ViridianPersistentState.get(serverWorld);
+					String worldKey = world.getSaveHandler().getWorldDir().getName();
+					public static String keyForWorld(World world) {
+						return world.getSaveHandler().getWorldDir().getName(); //getSaveHandler().readProperties().get();
+					}
+			return new ViridianPridePacketResponse(players, worlds);
+
+
+			//	System.out.println("Pride time 2");
+			//	EnvironmentHandler envHandler = FabricLoader.INSTANCE.getEnvironmentHandler()
+			//	System.out.println("envHandler = " + envHandler.toString());
+			//String worldKey = ViridianPersistentState.keyForWorld(player.getWorld());
+
+
+			// client.getServer();
+				//	if (server == null) { // CLIENT //
+					//	System.out.println("about to getSession, remoteServer...");
+						// ClientGameSession session = (ClientGameSession)client.getSession();
+						 // getUsername() / getUuid() / .getGame().getSession();
+					//	server = ServerNetworkIO.getServer();
+						//	server = FabricLoader.getInstance().getEnvironmentHandler().getServerInstance();
+				//	}
+				// 							MinecraftServer server = envHandler.getServerInstance();
+
+
+						//	System.out.println("server = " + server.toString());
+						//	System.out.println("getPlayerManager = " + playerManager.toString());
+
+					//		System.out.println("Player names = " + playerNames.toString());
 	}
 
 	// based off of defcon & worldedit https://www.spigotmc.org/threads/player-direction.175482/

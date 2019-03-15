@@ -3,7 +3,7 @@
 <br/><br/>
 viridian
 <br/>
-companion mod for minecraft (fabric 1.14)
+companion mod for minecraft snapshots (fabric 1.14 19w08b)
 </h3>
 
 <p align="center">
@@ -55,6 +55,22 @@ Install `viridian.jar` in your `.minecraft/mods/` folder. That's it!
 ## How to Build
 
 - `cd plugin && ./gradlew build`
+
+
+### Structure
+
+```
+// step 1 use a gamerenderer mixin to inject a new UI when the display is drawn
+// step 2 open GlStateManager, use current location of player to calc X/Y/Z in world, draw this on screen
+// step 3 use current facing/rotation of player to calculate cardinal direction, draw this on screen
+// step 4 use the current location of the player to get current Biome, draw this on screen
+// step 5 pride -> (bottleneck) client sends message to server asking for pride response to draw on screen
+// step 6 server gets all online players, looks up location & world to get all pride areas from persistent state
+// step 7 check if each player is within 50 blocks of one or more pride areas (thus, activating it)
+// step 8 create a Map<String, List<String>> of all players (encoded as a CompoundTag); NAME : LIST OF PRIDE AREA NAMES
+// step 9 send this compound tag back to the client, who can parse the tag into strings when it receives it
+// step 10 use the game renderer mixin to display the pride areas activated per each user, close GlStateManager
+```
 
 ## Acknowledgements
 
