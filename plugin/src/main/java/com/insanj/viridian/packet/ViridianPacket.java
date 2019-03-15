@@ -1,35 +1,16 @@
-package com.insanj.viridian;
+package com.insanj.viridian.packet;
 
 import java.util.List;
 
 class ViridianPacket {
-    final class Pride {
-      private final String playerName;
-      private final List<String> prideAreas;
-      public Pride(String playerName, List<String> prideAreas) {
-        this.playerName = playerName;
-        this.prideAreas = prideAreas;
-      }
-
-      public String getPlayerName() { return playerName; }
-      public List<Strng> getPrideAreas() { return prideAreas; }
-
-      public CompoundTag toTag() {
-
-      }
-
-      public ViridianPacket fromTag(CompoundTag tag) {
-
-      }
-    }
-
-    private final List<Pride> players;
+    private Map<String, List<String>> players;
     public ViridianPacket(List<Pride> players) {
       this.players = players;
     }
-    public List<Pride> getPlayers() { return players; };
+    public Map<String, List<String>> getPlayers() { return players; };
 
-
+    public CompoundTag toTag() {   }
+    public static ViridianPacket fromTag(CompoundTag tag) {  }
 }
 
 /*

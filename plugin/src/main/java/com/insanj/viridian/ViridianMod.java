@@ -10,6 +10,7 @@ import java.util.HashMap;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 
 import net.minecraft.server.command.ServerCommandManager;
 import net.minecraft.text.StringTextComponent;
@@ -40,10 +41,12 @@ public class ViridianMod implements ModInitializer {
             config = ViridianConfig.configFromFile(configFile);
         }
 
-        // experimental pride features
-        // File prideFile = new File(pridePath);
-        // ViridianPride pride = ViridianPride.configFromFile(prideFile);
-        // System.out.println(pride.worlds.toString());
+        // packetConsumer = new ViridianServerSidePacketConsumer();
+        if (isClient) {
+          packetConsumer.register(ServerSidePacketRegistry.INSTANCE);
+        } else {
+          registry.register(ViridianPacketConsumer.VIRIDIAN_PACKET_CONSUMER_ID, this);
+        }
 
         CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
                 ServerCommandManager.literal("viridian")

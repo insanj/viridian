@@ -1,4 +1,4 @@
-package com.insanj.viridian;
+package com.insanj.viridian.packet;
 
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
@@ -14,14 +14,56 @@ import net.minecraft.util.PacketByteBuf;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
-public class ViridianPacketHandler {
-		private static final String VIRIDIAN_PACKET_ID_STRING = "VIRIDIAN_PACKET_ID_STRING";
+public class ViridianServerSidePacketConsumer implements PacketConsumer  {
+		private static final String VIRIDIAN_PACKET_CONSUMER_ID_STRING = "VIRIDIAN_PACKET_CONSUMER_ID";
+		private static final Identifier VIRIDIAN_PACKET_CONSUMER_ID = Identifier.create(VIRIDIAN_PACKET_CONSUMER_ID_STRING);
+
+		private static final String VIRIDIAN_PACKET_ID_STRING = "VIRIDIAN_PACKET_ID";
 		private static final Identifier VIRIDIAN_PACKET_ID = Identifier.create(VIRIDIAN_PACKET_ID_STRING);
 
-		public static void sendToServer(ViridianPacket packet, GenericFutureListener<? extends Future<? super Void>> completionListener) {
-			 	PacketByteBuf buffer = PacketByteBuf.readCompoundTag(packet.toTag());
-				ClientSidePacketRegistry.INSTANCE.sendToServer(VIRIDIAN_PACKET_ID, buffer, completionListener);
+		private final ServerSidePacketRegistry registry;
+
+		public ViridianPacketConsumer(ServerSidePacketRegistry registry) {
+				this.registry = registry;
 		}
+
+		public void register() {
+			registry.register(ViridianPacketConsumer.VIRIDIAN_PACKET_CONSUMER_ID, this);
+		}
+
+		@Override
+		public void accept(PacketContext context, PacketByteBuf buffer) {
+
+		}
+
+		public void askServerForPrideAreas() {
+				// GenericFutureListener<? extends Future<? super Void>> completionListener
+				ClientSidePacketRegistry.INSTANCE.sendToServer(VIRIDIAN_PACKET_ID, buffer, new GenericFutureListener<? extends Future<? super Void>>() {
+						public void operationComplete(Future <? super Void > operationComplete) throws Exception {
+								// yay
+						}
+				});
+		}
+
+		public void respondToClientWithPrideAreas() {
+
+		}
+
+		public Packet<?> convertViridianPacket(ViridianPacket viridianPacket) {
+				CompoundTag tag = viridianPacket.toTag();
+				PacketByteBuf buf = new PacketByteBuf();
+				buf.writeCompoundTag(tag);
+				Packet<?> packet = registry.toPacket(buf);
+				return packet;
+		}
+
+		public ViridianPacket convertPacketByteBuf(PacketByteBuf buffer) {
+				CompoundTag tag = buffer.readCompoundTag();
+				ViridianPacket viridianPacket = ViridianPacket.fromTag(tag);
+				return viridianPacket;
+		}
+
+
 
 		//public static ViridianPacket createViridianPacket() {
 		/*		PlayerManager playerManager = server.getPlayerManager();
