@@ -11,17 +11,17 @@ import net.minecraft.network.Packet;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
-import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.Future;  
 import io.netty.util.concurrent.GenericFutureListener;
 
 public class ViridianClientSidePacketConsumer implements PacketConsumer  {
 
-		private static final String VIRIDIAN_PACKET_CONSUMER_ID_STRING = "VIRIDIAN_PACKET_CONSUMER_ID";
-		private static final Identifier VIRIDIAN_PACKET_CONSUMER_ID = Identifier.create(VIRIDIAN_PACKET_CONSUMER_ID_STRING);
+		private static final String VIRIDIAN_CLIENT_PACKET_CONSUMER_ID_STRING = "VIRIDIAN_CLIENT_PACKET_CONSUMER_ID_STRING";
+		private static final Identifier VIRIDIAN_CLIENT_PACKET_CONSUMER_ID = Identifier.create(VIRIDIAN_CLIENT_PACKET_CONSUMER_ID_STRING);
 
-		private static final String VIRIDIAN_PACKET_ID_STRING = "VIRIDIAN_PACKET_ID";
-		private static final Identifier VIRIDIAN_PACKET_ID = Identifier.create(VIRIDIAN_PACKET_ID_STRING);
-
+		private static final String VIRIDIAN_CLIENT_PACKET_ID_STRING = "VIRIDIAN_PACKET_ID";
+		private static final Identifier VIRIDIAN_CLIENT_PACKET_ID = Identifier.create(VIRIDIAN_PACKET_ID_STRING);
+  
 //		private final ServerSidePacketRegistry registry;
     private HashMap<PlayerEntity player, GenericFutureListener listener> listeners;
 
