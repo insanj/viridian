@@ -3,13 +3,14 @@
 <br/><br/>
 viridian
 <br/>
-tiny companion hud for minecraft (fabric 1.13)
+lots of love to your hud! (fabric 1.14)
 </h3>
 
 <p align="center">
   <a href="https://github.com/insanj/viridian/releases">
     <img src="https://img.shields.io/github/tag/insanj/viridian.svg" />
   </a>
+
 
   <a href="https://github.com/insanj/viridian/">
     <img src="https://img.shields.io/github/languages/code-size/insanj/viridian.svg" />
@@ -22,15 +23,19 @@ tiny companion hud for minecraft (fabric 1.13)
   <br/>
 
   <a href="https://jdk.java.net/">
-    <img src="https://img.shields.io/badge/java-10.0.2-yellow.svg" />
+    <img src="https://img.shields.io/badge/java-8-yellow.svg" />
+  </a>
+
+  <a href="https://minecraft.net/">
+    <img src="https://img.shields.io/badge/minecraft-1.14-brown.svg" />
   </a>
 
   <a href="https://minecraft.curseforge.com/projects/fabric">
-    <img src="https://img.shields.io/badge/fabric%20api-0.2.3%2019w08b-purple.svg" />
+    <img src="https://img.shields.io/badge/fabric-0.2.3.109-purple.svg" />
   </a>
 
-  <a href="https://minecraft.curseforge.com/mc-mods/fabric?filter-game-version=2020709689:7133">
-    <img src="https://img.shields.io/badge/🚀-Learn%20more%20on%20minecraft.curseforge.com-red.svg" />
+  <a href="https://github.com/insanj/viridian/releases">
+    <img src="https://img.shields.io/badge/🚀-Download%20on%20on%20Github-red.svg" />
   </a>
 </p>
 
@@ -38,8 +43,7 @@ tiny companion hud for minecraft (fabric 1.13)
 
 Install `viridian.jar` in your `.minecraft/mods/` folder. That's it!
 
-![](in_game.png)
-![](mod_menu.png)
+![](screenie.png)
 
 ### Requirements
 
