@@ -3,7 +3,7 @@
   "package": "com.insanj.viridian.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "GameRendererMixin"
+    "ViridianGameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

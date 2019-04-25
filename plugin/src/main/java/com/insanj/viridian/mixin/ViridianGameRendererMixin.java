@@ -18,11 +18,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
-public class GameRendererMixin {
-
+public class ViridianGameRendererMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/GlStateManager;alphaFunc(IF)V"), method = "render")
-	public void render(float float_1, long long_1, boolean boolean_1, CallbackInfo info) {
-
+	public void render(float tickDelta, long startTime, boolean fullRender, CallbackInfo info) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if(!client.options.debugEnabled && ViridianMod.config.showHud) {
 			BlockPos blockPos = new BlockPos(client.getCameraEntity().x, client.getCameraEntity().getBoundingBox().minY, client.getCameraEntity().z);
@@ -31,13 +29,16 @@ public class GameRendererMixin {
 			GlStateManager.scaled(1 * scaleFactor, 1 * scaleFactor, 1 * scaleFactor);
 
 			String facingString = getCardinalDirection(client.getCameraEntity().yaw);
-			String ashString = String.format("%d fps %d %d %d %s", MinecraftClient.getCurrentFps(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), facingString);
+			String ashString = String.format("☕ %d ✎ %d %d %d %s", MinecraftClient.getCurrentFps(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), facingString);
 			client.textRenderer.drawWithShadow(ashString, 5, 5, ViridianMod.config.hudColor);
 
 			Chunk chunk = client.world.getWorldChunk(blockPos);
 			TextComponent biomeInfoTextComponent = chunk.getBiome(blockPos).getTextComponent();
 			String biomeInfoString = biomeInfoTextComponent.getFormattedText();
-			client.textRenderer.drawWithShadow(biomeInfoString, 5, 15, ViridianMod.config.hudColor);
+
+			int lightLevel = chunk.getLightLevel(blockPos, client.world.getAmbientDarkness(), true);
+			String subtitleString = String.format("⚑ %s ☀ %d", biomeInfoString, lightLevel);
+			client.textRenderer.drawWithShadow(subtitleString, 5, 15, ViridianMod.config.hudColor);
 
 			GlStateManager.popMatrix();
 		}

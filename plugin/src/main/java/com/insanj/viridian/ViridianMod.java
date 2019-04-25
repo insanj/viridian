@@ -5,7 +5,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.server.command.ServerCommandManager;
+import net.minecraft.server.command.CommandManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,8 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ViridianMod implements ModInitializer {
-
-    public static final String MOD_ID = "insanj_viridian";
+    public static final String MOD_ID = "viridian";
     public static ViridianConfig config;
 
     @Override
@@ -53,7 +52,7 @@ public class ViridianMod implements ModInitializer {
 
 
         CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
-                ServerCommandManager.literal("viridian")
+                CommandManager.literal("viridian")
                         .executes(context -> {
                             config.showHud = !config.showHud;
                             config.saveConfig();
@@ -62,10 +61,10 @@ public class ViridianMod implements ModInitializer {
         ));
 
         CommandRegistry.INSTANCE.register(false, serverCommandSourceCommandDispatcher -> serverCommandSourceCommandDispatcher.register(
-                ServerCommandManager.literal("vcolor")
-                        .then(ServerCommandManager.argument("r", IntegerArgumentType.integer())
-                                .then(ServerCommandManager.argument("g", IntegerArgumentType.integer())
-                                        .then(ServerCommandManager.argument("b", IntegerArgumentType.integer())
+                CommandManager.literal("viridiancolor")
+                        .then(CommandManager.argument("r", IntegerArgumentType.integer())
+                                .then(CommandManager.argument("g", IntegerArgumentType.integer())
+                                        .then(CommandManager.argument("b", IntegerArgumentType.integer())
                                             .executes(context -> {
                                                 int r = IntegerArgumentType.getInteger(context,"r");
                                                 int g = IntegerArgumentType.getInteger(context,"g");

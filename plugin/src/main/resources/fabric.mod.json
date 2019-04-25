@@ -1,16 +1,53 @@
 {
-  "id": "insanj_viridian",
-  "name": "viridian",
-  "description": "experimental hud project on fabric 1.14",
+  "schemaVersion": 1,
+  "id": "viridian",
   "version": "${version}",
-  "side": "universal",
-  "initializers": [
-    "com.insanj.viridian.ViridianMod"
+
+  "name": "viridian",
+  "icon": "assets/viridian/icon.png",
+  "description": "lots of love to your hud!",
+  "authors": [
+    {
+     "name": "Julian (insanj) Weiss",
+      "contact": {
+        "email": "me@insanj.com",
+        "homepage": "https://insanj.github.io/viridian/",
+        "issues": "https://github.com/insanj/viridian/issues",
+        "sources": "https://github.com/insanj/viridian/"
+      }
+    }
   ],
-  "requires": {
+  "license": "MIT",
+  "contact": {
+    "email": "me@insanj.com",
+    "homepage": "https://insanj.github.io/viridian/",
+    "issues": "https://github.com/insanj/viridian/issues",
+    "sources": "https://github.com/insanj/viridian/"
+  },
+
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "com.insanj.viridian.ViridianMod"
+    ]
+  },
+
+  "mixins": [
+   "viridian.client.json"
+  ],
+  "requires" : {
+    "fabricloader": ">=0.4.0",
     "fabric": "*"
   },
-  "mixins": {
-    "client": "insanj_viridian.client.json"
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }, 
+
+  "custom": {
+    "modmenu:clientsideOnly": true
   }
 }
